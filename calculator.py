@@ -26,6 +26,13 @@ def add_point(point):
     if point not in value:
         calc.delete(0, tk.END)  # очищаем экран.
         calc.insert(0, value + point)  # выводим уже новое значение.
+    elif ('+' in value or '-' in value or '/' in value or '*' in value) and value.count('.') < 2:
+        if value[-1] in '+-*/':
+            calc.delete(0, tk.END)  # очищаем экран.
+            calc.insert(0, value + '0' + point)
+        else:
+            calc.delete(0, tk.END)  # очищаем экран.
+            calc.insert(0, value + point)  # выводим уже новое значение.
 
 
 # функция вывода на экран арифметического знака
@@ -142,14 +149,14 @@ def make_percent_button():
 # функция работы кнопок клавиатуры компьютера
 def press_key(event):
     # print(repr(event.char))        # чтобы узнать кодировку кнопки
-    if event.char.isdigit():  # если нажата цыфровая клавиша
-        add_digit(event.char)  # выводим её значение на экран
-    elif event.char in '/*-+':  # если нажата арифметическая клавиша
+    if event.char.isdigit():       # если нажата цыфровая клавиша
+        add_digit(event.char)      # выводим её значение на экран
+    elif event.char in '/*-+':     # если нажата арифметическая клавиша
         add_operation(event.char)  # выводим её значение на экран
-    elif event.char == '\r':  # если нажата клавиша Enter
-        calculate()  # вычисляем Backspace
-    elif event.char == '\x08':  # если нажата клавиша
-        backspace()  # удаляем по символу
+    elif event.char == '\r':       # если нажата клавиша Enter
+        calculate()                # вычисляем Backspace
+    elif event.char == '\x08':     # если нажата клавиша
+        backspace()                # удаляем по символу
 
 
 # создание окна для калькулятора
